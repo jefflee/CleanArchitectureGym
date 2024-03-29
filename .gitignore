@@ -1,3 +1,9 @@
 Code/.vs/
 Code/GymManagement.Api/obj/
 Code/GymManagement.Api/bin/
+Code/GymManagement.Application/bin/
+Code/GymManagement.Application/obj/
+Code/GymManagement.Domain/bin/
+Code/GymManagement.Domain/obj/
+Code/GymManagement.Infrastructure/bin/
+Code/GymManagement.Infrastructure/obj/
