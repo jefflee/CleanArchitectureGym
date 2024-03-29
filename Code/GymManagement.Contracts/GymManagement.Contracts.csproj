@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GymManagement.Application\GymManagement.Application.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Subscriptions\" />
   </ItemGroup>
 
