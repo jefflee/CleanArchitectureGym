@@ -2,7 +2,7 @@
 {
     public static class GetWeatherEndpoint
     {
-        public static void AddGettingWeatherEndpoint(this WebApplication app)
+        public static WebApplication AddGettingWeatherEndpoint(this WebApplication app)
         {
             var summaries = new[]
             {
@@ -22,7 +22,10 @@
                     return forecast;
                 })
                 .WithName("GetWeatherForecast")
+                .WithTags("WeatherForecast")
                 .WithOpenApi();
+
+            return app;
         }
 
         internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
