@@ -17,11 +17,15 @@ namespace GymManagement.Api.Endpoints.Subscriptions
                         request.SubscriptionType.ToString(),
                         request.AdminId);
 
-                    var subscriptionId = await mediator.Send(command);
+                    var createSubscriptionResult = await mediator.Send(command);
 
-                    var response = new SubscriptionResponse(subscriptionId, request.SubscriptionType);
-
-                    return Results.Created($"/subscriptions/{subscriptionId}", response);
+                    return createSubscriptionResult.MatchFirst(
+                        subscriptionId =>
+                        {
+                            var response = new SubscriptionResponse(subscriptionId, request.SubscriptionType);
+                            return Results.Created($"/subscriptions/{subscriptionId}", response);
+                        },
+                        error => Results.Problem());
                 })
                 .WithName("CreateASubscription")
                 .WithTags("Subscription")
