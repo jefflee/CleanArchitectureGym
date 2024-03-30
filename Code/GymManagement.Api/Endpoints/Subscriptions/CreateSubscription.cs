@@ -1,5 +1,6 @@
-﻿using GymManagement.Application.Services;
+﻿using GymManagement.Application.Subscriptions.Commands.CreateSubscription;
 using GymManagement.Contracts.Subscriptions;
+using MediatR;
 
 namespace GymManagement.Api.Endpoints.Subscriptions
 {
@@ -9,11 +10,14 @@ namespace GymManagement.Api.Endpoints.Subscriptions
         {
             app.MapPost("/subscriptions", async (
                         CreateSubscriptionRequest request,
-                        ISubscriptionsService subscriptionsService)
+                        ISender mediator)
                     =>
                 {
-                    var subscriptionId =
-                        subscriptionsService.CreateSubscription(request.SubscriptionType.ToString(), request.AdminId);
+                    var command = new CreateSubscriptionCommand(
+                        request.SubscriptionType.ToString(),
+                        request.AdminId);
+
+                    var subscriptionId = await mediator.Send(command);
 
                     var response = new SubscriptionResponse(subscriptionId, request.SubscriptionType);
 
