@@ -20,14 +20,14 @@ namespace GymManagement.Api.Endpoints.Subscriptions
                     var createSubscriptionResult = await mediator.Send(command);
 
                     return createSubscriptionResult.MatchFirst(
-                        subscriptionId =>
+                        subscription =>
                         {
-                            var response = new SubscriptionResponse(subscriptionId, request.SubscriptionType);
-                            return Results.Created($"/subscriptions/{subscriptionId}", response);
+                            var response = new SubscriptionResponse(subscription.Id, request.SubscriptionType);
+                            return Results.Created($"/subscriptions/{subscription.Id}", response);
                         },
                         error => Results.Problem());
                 })
-                .WithName("CreateASubscription")
+                .WithName("CreateSubscription")
                 .WithTags("Subscription")
                 .WithOpenApi();
 

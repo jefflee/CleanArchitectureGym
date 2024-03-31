@@ -2,6 +2,7 @@
 @host=https://localhost:7121
 @adminId=2150e333-8fdc-42a3-9474-1a3956d46de8
 
+### Create Subscription
 POST {{host}}/Subscriptions
 Content-Type: application/json
 
@@ -14,3 +15,11 @@ Content-Type: application/json
 #     "Id": "{{adminId}}"
 #     "SubscriptionType": "Free", // "Starter", "Pro"
 # }
+
+### Get Subscription
+@subscriptionId=6727B548-5DC1-43B4-8A67-40F9E270D49D
+GET {{host}}/Subscriptions/{{subscriptionId}}
+
+### Subscription not found
+@subscriptionId=bbf5b8fe-9407-427e-a2d4-0a1a31554735
+GET {{host}}/Subscriptions/{{subscriptionId}}
