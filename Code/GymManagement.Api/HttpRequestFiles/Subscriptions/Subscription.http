@@ -1,6 +1,4 @@
 # For more info on HTTP files go to https://aka.ms/vs/httpfile
-@host=https://localhost:7121
-@adminId=2150e333-8fdc-42a3-9474-1a3956d46de8
 
 ### Create Subscription
 POST {{host}}/Subscriptions
@@ -21,5 +19,5 @@ Content-Type: application/json
 GET {{host}}/Subscriptions/{{subscriptionId}}
 
 ### Subscription not found
-@subscriptionId=bbf5b8fe-9407-427e-a2d4-0a1a31554735
-GET {{host}}/Subscriptions/{{subscriptionId}}
+@subscriptionIdNotFound=bbf5b8fe-9407-427e-a2d4-0a1a31554735
+GET {{host}}/Subscriptions/{{subscriptionIdNotFound}}
