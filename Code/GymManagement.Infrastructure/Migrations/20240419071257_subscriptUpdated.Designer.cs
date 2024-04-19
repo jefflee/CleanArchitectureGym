@@ -3,6 +3,7 @@ using System;
 using GymManagement.Infrastructure.Common.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GymManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(GymManagementDbContext))]
-    partial class GymManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240419071257_subscriptUpdated")]
+    partial class subscriptUpdated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.3");
@@ -20,13 +23,8 @@ namespace GymManagement.Infrastructure.Migrations
             modelBuilder.Entity("GymManagement.Domain.Subscriptions.Subscription", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
-
-                    b.Property<Guid>("AdminId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("SubscriptionType")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 

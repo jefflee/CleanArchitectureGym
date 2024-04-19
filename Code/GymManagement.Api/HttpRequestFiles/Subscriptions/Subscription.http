@@ -5,7 +5,7 @@ POST {{host}}/Subscriptions
 Content-Type: application/json
 
 {
-    "SubscriptionType": "Free",
+    "SubscriptionType": "Starter",
     "AdminId": "{{adminId}}"
 }
 
@@ -16,6 +16,10 @@ Content-Type: application/json
 
 ### Get Subscription
 @subscriptionId=6727B548-5DC1-43B4-8A67-40F9E270D49D
+GET {{host}}/Subscriptions/{{subscriptionId}}
+
+### Get Subscription - Starter
+@subscriptionId=5FA0F9AD-E0CE-41BA-ACA3-2987E0A16C37
 GET {{host}}/Subscriptions/{{subscriptionId}}
 
 ### Subscription not found

@@ -21,11 +21,9 @@ public class CreateSubscriptionCommandHandler : IRequestHandler<CreateSubscripti
         CancellationToken cancellationToken)
     {
         // Create a subscription
-        var subscription = new Subscription
-        {
-            Id = Guid.NewGuid(),
-            SubscriptionType = request.SubscriptionType
-        };
+        var subscription = new Subscription(
+            request.SubscriptionType,
+            request.AdminId);
 
         // Add it to the database
         await _subscriptionsRepository.AddSubscriptionAsync(subscription);

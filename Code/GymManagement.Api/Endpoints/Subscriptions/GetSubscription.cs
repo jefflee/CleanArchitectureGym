@@ -20,8 +20,9 @@ namespace GymManagement.Api.Endpoints.Subscriptions
                     return getSubscriptionsResult.MatchFirst(
                         subscription =>
                         {
-                            var response = new SubscriptionResponse(subscription.Id,
-                                Enum.Parse<SubscriptionType>(subscription.SubscriptionType));
+                            var response = new SubscriptionResponse(
+                                subscription.Id,
+                                SubscriptionUtility.ToDto(subscription.SubscriptionType));
                             return Results.Ok(response);
                         },
                         error => Results.Problem());
