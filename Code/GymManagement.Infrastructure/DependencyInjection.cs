@@ -16,6 +16,8 @@ namespace GymManagement.Infrastructure
 
             services.AddScoped<IAdminsRepository, AdminsRepository>();
             services.AddScoped<ISubscriptionsRepository, SubscriptionsRepository>();
+            services.AddScoped<IGymsRepository, GymsRepository>();
+
             services.AddScoped<IUnitOfWork>(serviceProvider =>
                 serviceProvider.GetRequiredService<GymManagementDbContext>());
 
