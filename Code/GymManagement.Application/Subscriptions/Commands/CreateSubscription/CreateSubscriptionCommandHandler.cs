@@ -5,29 +5,36 @@ using MediatR;
 
 namespace GymManagement.Application.Subscriptions.Commands.CreateSubscription;
 
-public class CreateSubscriptionCommandHandler : IRequestHandler<CreateSubscriptionCommand, ErrorOr<Subscription>>
+public class CreateSubscriptionCommandHandler(ISubscriptionsRepository subscriptionsRepository, IUnitOfWork unitOfWork,
+        IAdminsRepository adminsRepository)
+    : IRequestHandler<CreateSubscriptionCommand, ErrorOr<Subscription>>
 {
-    private readonly ISubscriptionsRepository _subscriptionsRepository;
-    private readonly IUnitOfWork _unitOfWork;
-
-    public CreateSubscriptionCommandHandler(
-        ISubscriptionsRepository subscriptionsRepository, IUnitOfWork unitOfWork)
-    {
-        _subscriptionsRepository = subscriptionsRepository;
-        _unitOfWork = unitOfWork;
-    }
-
     public async Task<ErrorOr<Subscription>> Handle(CreateSubscriptionCommand request,
         CancellationToken cancellationToken)
     {
+        var admin = await adminsRepository.GetByIdAsync(request.AdminId);
+
+        if (admin is null)
+        {
+            return Error.NotFound(description: "Admin not found");
+        }
+
         // Create a subscription
         var subscription = new Subscription(
             request.SubscriptionType,
             request.AdminId);
 
+        if (admin.SubscriptionId is not null)
+        {
+            return Error.Conflict(description: "Admin already has an active subscription");
+        }
+
+        admin.SetSubscription(subscription);
+
         // Add it to the database
-        await _subscriptionsRepository.AddSubscriptionAsync(subscription);
-        await _unitOfWork.CommitChangesAsync();
+        await subscriptionsRepository.AddSubscriptionAsync(subscription);
+        await adminsRepository.UpdateAsync(admin);
+        await unitOfWork.CommitChangesAsync();
 
         // Return subscription
         return subscription;

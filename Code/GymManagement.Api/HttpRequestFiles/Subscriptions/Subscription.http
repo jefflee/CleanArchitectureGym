@@ -19,8 +19,8 @@ Content-Type: application/json
 GET {{host}}/Subscriptions/{{subscriptionId}}
 
 ### Get Subscription - Starter
-@subscriptionId=5FA0F9AD-E0CE-41BA-ACA3-2987E0A16C37
-GET {{host}}/Subscriptions/{{subscriptionId}}
+@starterSubscriptionId=5FA0F9AD-E0CE-41BA-ACA3-2987E0A16C37
+GET {{host}}/Subscriptions/{{starterSubscriptionId}}
 
 ### Subscription not found
 @subscriptionIdNotFound=bbf5b8fe-9407-427e-a2d4-0a1a31554735

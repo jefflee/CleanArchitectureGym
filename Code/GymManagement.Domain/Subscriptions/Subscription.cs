@@ -1,4 +1,8 @@
-﻿namespace GymManagement.Domain.Subscriptions
+﻿using ErrorOr;
+using GymManagement.Domain.Gyms;
+using Throw;
+
+namespace GymManagement.Domain.Subscriptions
 {
     public class Subscription
     {
@@ -23,9 +27,24 @@
         }
 
         public Guid Id { get; private set; }
+
         public SubscriptionType SubscriptionType { get; } = null!;
 
         public Guid AdminId { get; }
+
+        public ErrorOr<Success> AddGym(Gym gym)
+        {
+            _gymIds.Throw().IfContains(gym.Id);
+
+            if (_gymIds.Count >= _maxGyms)
+            {
+                return SubscriptionErrors.CannotHaveMoreGymsThanSubscriptionAllows;
+            }
+
+            _gymIds.Add(gym.Id);
+
+            return Result.Success;
+        }
 
         public int GetMaxGyms()
         {
@@ -36,6 +55,40 @@
                 nameof(SubscriptionType.Pro) => 3,
                 _ => throw new InvalidOperationException()
             };
+        }
+
+        public int GetMaxRooms()
+        {
+            return SubscriptionType.Name switch
+            {
+                nameof(SubscriptionType.Free) => 1,
+                nameof(SubscriptionType.Starter) => 3,
+                nameof(SubscriptionType.Pro) => int.MaxValue,
+                _ => throw new InvalidOperationException()
+            };
+        }
+
+        public int GetMaxDailySessions()
+        {
+            return SubscriptionType.Name switch
+            {
+                nameof(SubscriptionType.Free) => 4,
+                nameof(SubscriptionType.Starter) => int.MaxValue,
+                nameof(SubscriptionType.Pro) => int.MaxValue,
+                _ => throw new InvalidOperationException()
+            };
+        }
+
+        public bool HasGym(Guid gymId)
+        {
+            return _gymIds.Contains(gymId);
+        }
+
+        public void RemoveGym(Guid gymId)
+        {
+            _gymIds.Throw().IfNotContains(gymId);
+
+            _gymIds.Remove(gymId);
         }
     }
 }

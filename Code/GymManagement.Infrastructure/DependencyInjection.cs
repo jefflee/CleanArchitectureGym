@@ -1,4 +1,5 @@
 ﻿using GymManagement.Application.Common.Interfaces;
+using GymManagement.Infrastructure.Admins.Persistence;
 using GymManagement.Infrastructure.Common.Persistence;
 using GymManagement.Infrastructure.Subscriptions.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ namespace GymManagement.Infrastructure
             services.AddDbContext<GymManagementDbContext>(options =>
                 options.UseSqlite("Data Source = GymManagement.db"));
 
+            services.AddScoped<IAdminsRepository, AdminsRepository>();
             services.AddScoped<ISubscriptionsRepository, SubscriptionsRepository>();
             services.AddScoped<IUnitOfWork>(serviceProvider =>
                 serviceProvider.GetRequiredService<GymManagementDbContext>());

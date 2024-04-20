@@ -9,3 +9,5 @@ Code/GymManagement.Infrastructure/bin/
 Code/GymManagement.Infrastructure/obj/
 Code/GymManagement.Contracts/bin/
 Code/GymManagement.Contracts/obj/
+Code/GymManagement.Api/GymManagement.db-shm
+Code/GymManagement.Api/GymManagement.db-wal
