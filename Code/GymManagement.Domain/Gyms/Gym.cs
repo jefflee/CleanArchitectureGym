@@ -1,4 +1,6 @@
 ﻿using ErrorOr;
+using GymManagement.Domain.Rooms;
+using Throw;
 
 namespace GymManagement.Domain.Gyms;
 
@@ -29,19 +31,19 @@ public class Gym
     public string Name { get; init; } = null!;
     public Guid SubscriptionId { get; init; }
 
-    //public ErrorOr<Success> AddRoom(Room room)
-    //{
-    //    _roomIds.Throw().IfContains(room.Id);
+    public ErrorOr<Success> AddRoom(Room room)
+    {
+        _roomIds.Throw().IfContains(room.Id);
 
-    //    if (_roomIds.Count >= _maxRooms)
-    //    {
-    //        return GymErrors.CannotHaveMoreRoomsThanSubscriptionAllows;
-    //    }
+        if (_roomIds.Count >= _maxRooms)
+        {
+            return GymErrors.CannotHaveMoreRoomsThanSubscriptionAllows;
+        }
 
-    //    _roomIds.Add(room.Id);
+        _roomIds.Add(room.Id);
 
-    //    return Result.Success;
-    //}
+        return Result.Success;
+    }
 
     public bool HasRoom(Guid roomId)
     {
