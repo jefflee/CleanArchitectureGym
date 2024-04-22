@@ -36,7 +36,7 @@ namespace GymManagement.Api.Endpoints.Subscriptions
                                 subscription.Id, SubscriptionUtility.ToDto(subscription.SubscriptionType));
                             return Results.Created($"/subscriptions/{subscription.Id}", response);
                         },
-                        error => Results.Problem());
+                        error => Results.Problem(error.Description));
                 })
                 .WithName("CreateSubscription")
                 .WithTags("Subscription")

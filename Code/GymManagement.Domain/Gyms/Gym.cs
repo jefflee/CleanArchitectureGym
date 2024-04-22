@@ -6,6 +6,12 @@ namespace GymManagement.Domain.Gyms;
 
 public class Gym
 {
+    // _maxRooms is a private field that is only set in the constructor and never changed.
+    // Its value is customer decided. In this project, it is in CreateRoomCommandHandler.
+    // The interesting thins is that this value is from Subscription model.
+    // Ths subscriptionId is also from the other model.
+    // I think creating a duplicated property is not a good idea, but the domain can't access external data store.
+    // So, it is a trade-off.
     private readonly int _maxRooms;
     private readonly List<Guid> _roomIds = new();
     private readonly List<Guid> _trainerIds = new();

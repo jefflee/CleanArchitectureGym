@@ -28,7 +28,8 @@ app.UseHttpsRedirection();
 // Add endpoints
 app.AddGettingWeatherEndpoint()
     .AddCreatingSubscriptionEndpoint()
-    .AddGettingSubscriptionEndpoint();
+    .AddGettingSubscriptionEndpoint()
+    .AddDeletingSubscriptionEndpoint();
 
 
 app.Run();

@@ -25,3 +25,7 @@ GET {{host}}/Subscriptions/{{starterSubscriptionId}}
 ### Subscription not found
 @subscriptionIdNotFound=bbf5b8fe-9407-427e-a2d4-0a1a31554735
 GET {{host}}/Subscriptions/{{subscriptionIdNotFound}}
+
+### Delete Subscription 
+@deleteSubscriptionId=8C82EE1E-7945-4EDA-8D18-FC367AC741FE
+DELETE {{host}}/Subscriptions/{{deleteSubscriptionId}}
