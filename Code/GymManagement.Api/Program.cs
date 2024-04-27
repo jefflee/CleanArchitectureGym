@@ -1,3 +1,5 @@
+using GymManagement.Api.Endpoints.Gyms;
+using GymManagement.Api.Endpoints.Rooms;
 using GymManagement.Api.Endpoints.Subscriptions;
 using GymManagement.Api.Endpoints.Weather;
 using GymManagement.Application;
@@ -29,7 +31,13 @@ app.UseHttpsRedirection();
 app.AddGettingWeatherEndpoint()
     .AddCreatingSubscriptionEndpoint()
     .AddGettingSubscriptionEndpoint()
-    .AddDeletingSubscriptionEndpoint();
-
+    .AddDeletingSubscriptionEndpoint()
+    .AddCreatingGymEndpoint()
+    .AddGettingGymEndpoint()
+    .AddListingGymEndpoint()
+    .AddDeletingGymEndpoint()
+    .AddAddingTrainerEndpoint()
+    .AddCreatingRoomEndpoint()
+    .AddDeletingRoomEndpoint();
 
 app.Run();

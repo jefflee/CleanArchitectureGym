@@ -25,7 +25,7 @@ namespace GymManagement.Api.Endpoints.Subscriptions
                                 SubscriptionUtility.ToDto(subscription.SubscriptionType));
                             return Results.Ok(response);
                         },
-                        error => Results.Problem());
+                        error => Results.Problem(error.Description));
                 })
                 .WithName("GetSubscription")
                 .WithTags("Subscription")

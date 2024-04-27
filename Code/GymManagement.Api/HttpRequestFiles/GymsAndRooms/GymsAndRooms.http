@@ -1,0 +1,51 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+
+### Create Subscription
+@createrId=05049f14-5bb0-4bfd-8cb0-f61d92ea3559
+@subscriptionId=0A237808-2EB3-4C00-BA00-A136D4E47D8B	
+@gymId=4BD8686D-E94F-4670-8500-41DEB74718D7
+@roomId=14d75d8f-b196-4d31-99df-64602d822a83
+### Create Subscription
+POST {{host}}/Subscriptions
+Content-Type: application/json
+
+{
+    "SubscriptionType": "Starter",
+    "AdminId": "{{createrId}}"
+}
+
+
+### Get Subscription
+GET {{host}}/Subscriptions/{{subscriptionId}}
+
+
+### Create Gym
+POST {{host}}/subscriptions/{{subscriptionId}}/gyms
+Content-Type: application/json
+
+{
+    "Name": "Jeff's gym"
+}
+
+### List Gyms
+GET {{host}}/subscriptions/{{subscriptionId}}/gyms
+
+### Get Gym
+GET {{host}}/subscriptions/{{subscriptionId}}/gyms/{{gymId}}
+
+### Create Room
+POST {{host}}/gyms/{{gymId}}/rooms
+Content-Type: application/json
+
+{
+    "Name": "A room"
+}
+
+### Delete Room
+DELETE {{host}}/gyms/{{gymId}}/rooms/{{roomId}}
+
+### Delete Gym
+DELETE {{host}}/subscriptions/{{subscriptionId}}/gyms/{{gymId}}
+
+### Delete Subscription 
+DELETE {{host}}/Subscriptions/{{subscriptionId}}

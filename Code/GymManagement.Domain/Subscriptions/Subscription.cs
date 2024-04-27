@@ -6,10 +6,6 @@ namespace GymManagement.Domain.Subscriptions
 {
     public class Subscription
     {
-        private readonly List<Guid> _gymIds = new();
-
-        private readonly int _maxGyms;
-
         private Subscription()
         {
         }
@@ -22,9 +18,9 @@ namespace GymManagement.Domain.Subscriptions
             SubscriptionType = subscriptionType;
             AdminId = adminId;
             Id = id ?? Guid.NewGuid();
-
-            _maxGyms = GetMaxGyms();
         }
+
+        public List<Gym> Gyms { get; set; } = new();
 
         public Guid Id { get; private set; }
 
@@ -34,14 +30,14 @@ namespace GymManagement.Domain.Subscriptions
 
         public ErrorOr<Success> AddGym(Gym gym)
         {
-            _gymIds.Throw().IfContains(gym.Id);
+            Gyms.Throw().IfTrue(p => p.Any(g => g.Id == gym.Id));
 
-            if (_gymIds.Count >= _maxGyms)
+            if (Gyms.Count >= GetMaxGyms())
             {
                 return SubscriptionErrors.CannotHaveMoreGymsThanSubscriptionAllows;
             }
 
-            _gymIds.Add(gym.Id);
+            Gyms.Add(gym);
 
             return Result.Success;
         }
@@ -81,14 +77,15 @@ namespace GymManagement.Domain.Subscriptions
 
         public bool HasGym(Guid gymId)
         {
-            return _gymIds.Contains(gymId);
+            return Gyms.Any(gym => gym.Id == gymId);
         }
 
         public void RemoveGym(Guid gymId)
         {
-            _gymIds.Throw().IfNotContains(gymId);
+            Gyms.Throw().IfFalse(p => p.Any(gym => gym.Id == gymId));
 
-            _gymIds.Remove(gymId);
+            // Remove element that gym.Id == gymId from Gyms list
+            Gyms.RemoveAll(gym => gym.Id == gymId);
         }
     }
 }

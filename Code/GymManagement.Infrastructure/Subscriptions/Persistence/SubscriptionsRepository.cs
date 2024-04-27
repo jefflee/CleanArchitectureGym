@@ -35,7 +35,9 @@ public class SubscriptionsRepository : ISubscriptionsRepository
 
     public async Task<Subscription?> GetByIdAsync(Guid subscriptionId)
     {
-        return await _dbContext.Subscriptions.FirstOrDefaultAsync(subscription => subscription.Id == subscriptionId);
+        return await _dbContext.Subscriptions
+            .Include(subcription => subcription.Gyms)
+            .FirstOrDefaultAsync(subscription => subscription.Id == subscriptionId);
     }
 
     public async Task<List<Subscription>> ListAsync()
