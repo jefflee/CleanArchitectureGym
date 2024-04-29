@@ -2,9 +2,9 @@
 
 ### Create Subscription
 @createrId=05049f14-5bb0-4bfd-8cb0-f61d92ea3559
-@subscriptionId=0A237808-2EB3-4C00-BA00-A136D4E47D8B	
-@gymId=4BD8686D-E94F-4670-8500-41DEB74718D7
-@roomId=14d75d8f-b196-4d31-99df-64602d822a83
+@subscriptionId=CE82E307-2C67-4933-BECA-001915F038AF	
+@gymId=FF3EADFE-5B5D-4849-8CFD-B7D13FF7BF38
+@roomId=04634798-c658-498a-b47f-14dea35357bb
 ### Create Subscription
 POST {{host}}/Subscriptions
 Content-Type: application/json

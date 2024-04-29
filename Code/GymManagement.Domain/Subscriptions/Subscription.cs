@@ -30,7 +30,8 @@ namespace GymManagement.Domain.Subscriptions
 
         public ErrorOr<Success> AddGym(Gym gym)
         {
-            Gyms.Throw().IfTrue(p => p.Any(g => g.Id == gym.Id));
+            // Throw exception if the gym exists.
+            HasGym(gym.Id).Throw().IfTrue();
 
             if (Gyms.Count >= GetMaxGyms())
             {
@@ -82,7 +83,8 @@ namespace GymManagement.Domain.Subscriptions
 
         public void RemoveGym(Guid gymId)
         {
-            Gyms.Throw().IfFalse(p => p.Any(gym => gym.Id == gymId));
+            // Throw exception if the gym doesn't exist.
+            HasGym(gymId).Throw().IfFalse();
 
             // Remove element that gym.Id == gymId from Gyms list
             Gyms.RemoveAll(gym => gym.Id == gymId);
