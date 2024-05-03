@@ -29,14 +29,14 @@ public static class CreateSubscription
 
                 var createSubscriptionResult = await mediator.Send(command);
 
-                return createSubscriptionResult.MatchFirst(
+                return createSubscriptionResult.Match(
                     subscription =>
                     {
                         var response = new SubscriptionResponse(
                             subscription.Id, SubscriptionUtility.ToDto(subscription.SubscriptionType));
                         return Results.Created($"/subscriptions/{subscription.Id}", response);
                     },
-                    error => Results.Problem(error.Description));
+                    errors => BaseEndpoint.CustomProblem(errors));
             })
             .WithName("CreateSubscription")
             .WithTags("Subscription")
